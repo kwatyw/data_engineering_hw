@@ -82,6 +82,7 @@ df_payments = (
 )
 
 # Партиционирование: paid_dt = date(paid_at)
+#Платежи без paid_at попадут в партицию __HIVE_DEFAULT_PARTITION__
 df_payments = df_payments.withColumn("paid_dt", F.to_date("paid_at"))
 
 # Перезапись: благодаря dynamic overwrite перезаписываются только 3 затронутые партиции

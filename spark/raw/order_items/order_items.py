@@ -31,6 +31,7 @@ jdbc = dict(
     driver='org.postgresql.Driver',
 )
 
+#В таблице нет колонки с датой для отбора по окну, поэтому каждый раз загружаем таблицу целиком.
 query = """
     SELECT order_id
          , product_id
