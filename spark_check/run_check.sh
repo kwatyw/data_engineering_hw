@@ -3,7 +3,7 @@
 # Каждый этап: spark-submit лоадера, затем автопроверка из ноутбука (check.py) с записью в лог.
 #
 # Использование (внутри контейнера, где доступен spark-submit и переменные MINIO_*/POSTGRES_*):
-#   bash run_pipeline.sh --load-date 2026-03-05 [--log-file /home/student/study/store_hse/spark_check/check.log] [--skip-delta]
+#   bash run_check.sh --load-date 2026-03-05 [--log-file /home/student/study/store_hse/spark_check/checks.log] [--skip-delta]
 #
 # Структура каталогов не меняется: скрипт лежит рядом с деревом study/store_hse/spark.
 
@@ -12,7 +12,7 @@ set -u  # без -e: падение одного шага логируем и р
 BASE_DIR="/home/student/study/store_hse"
 SPARK_ROOT="$BASE_DIR/spark"
 LOAD_DATE=""
-LOG_FILE="$BASE_DIR/spark_check/check.log"
+LOG_FILE="$BASE_DIR/spark_check/checks.log"
 SKIP_DELTA=0
 
 while [[ $# -gt 0 ]]; do
@@ -104,6 +104,6 @@ logsep
 if [[ "$FAILED" -eq 0 ]]; then
   log "CHECKS FINISHED run_id=$RUN_ID: все проверки пройдены"
 else
-  log "CHECKS FINISHED run_id=$RUN_ID: есть FAIL - см. check.log"
+  log "CHECKS FINISHED run_id=$RUN_ID: есть FAIL - см. checks.log"
 fi
 exit $FAILED
